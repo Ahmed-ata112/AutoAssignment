@@ -10,4 +10,3 @@ set_location_assignment PIN_W21 -to HEX0[3]
 set_location_assignment PIN_Y22 -to HEX0[4]
 set_location_assignment PIN_Y21 -to HEX0[5]
 set_location_assignment PIN_AA22 -to HEX0[6]
-size
