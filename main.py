@@ -68,9 +68,13 @@ def interactive():
 
 def main():
     try:
+
         read_pins()
-        # read_inputs_from_file()
-        interactive()
+        s = int(input("0- interactive\n1- Excel\n"))
+        if s == 0:
+            interactive()
+        else:
+            read_inputs_from_file()
     except Exception as ex:
         print("Error: " + str(ex.args))
 
