@@ -1,0 +1,13 @@
+set_location_assignment PIN_W2 -to RR[0]
+set_location_assignment PIN_Y3 -to RR[1]
+set_location_assignment PIN_N2 -to RR[2]
+set_location_assignment PIN_N1 -to RR[3]
+set_location_assignment PIN_AB15 -to HUHU
+set_location_assignment PIN_U21 -to HEX0[0]
+set_location_assignment PIN_V21 -to HEX0[1]
+set_location_assignment PIN_W22 -to HEX0[2]
+set_location_assignment PIN_W21 -to HEX0[3]
+set_location_assignment PIN_Y22 -to HEX0[4]
+set_location_assignment PIN_Y21 -to HEX0[5]
+set_location_assignment PIN_AA22 -to HEX0[6]
+size

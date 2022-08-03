@@ -1,8 +1,8 @@
 import pandas as pd
 
+
 names2pins = {}
-
-
+isFirst = True
 def read_pins():
     with open('pins.txt') as f:
 
@@ -19,12 +19,6 @@ def read_pins():
             i += 2
 
     print(names2pins)
-
-
-def generate_assignments(signal: str, pin: str):
-    print(f"set_location_assignment {pin.upper()} -to {signal.upper()}")
-
-
 def get_pin(input_str: str):
     if input_str.startswith("PIN_"):
         return input_str
@@ -32,29 +26,55 @@ def get_pin(input_str: str):
     return names2pins[input_str]
 
 
+def generate_assignments(signal: str, pin: str):
+    # print(f"set_location_assignment {get_pin(pin.upper())} -to {signal.upper()}")
+    global isFirst
+    with open("output.txt", "w" if isFirst else "a") as f:
+        f.write(f"set_location_assignment {get_pin(pin.upper())} -to {signal.upper()}\n")
+        isFirst = False
+
+
 def read_inputs_from_file():
     try:
         df = pd.read_excel(r'test1.xlsx')
         for index, row in df.iterrows():
-            pin = get_pin(row[1].upper().strip())
-            generate_assignments(row[0].upper().strip(), pin)
+            generate_assignments(row[0].upper().strip(), row[1].upper().strip())
     except Exception as inst:
         print(str(type(inst)) + " : " + str(inst.args))  # arguments stored in .args
 
 
+def generate_vector(signal, size, pin , start):
+    for i in range(size):
+        signalname = f"{signal}[{i}]"
+        pinName = f"{pin}{i+(start)}"
+        generate_assignments(signalname, pinName)
 
 
 def interactive():
-    a = input("enter 0 for individual or 1 for vectors")
+    while True:
+        c = int(input("\nEnter\n0 - individual\n1 - vectors\n-1 - EXIT\n\n"))
+        if c == 0:
+            signal, pin = input("signalName assignedPin:\n").strip().upper().split()
+            generate_assignments(signal, pin)
+        elif c == 1:
+            signal, pin,size,start = input("<signalBaseName pinBaseName size startPosition>\n").strip().upper().split()
+            generate_vector(signal, int(size), pin, int(start))
+        elif c == -1:
+            break
+        else:
+            print("\nEnter a valid value\n")
+            continue
 
 
 def main():
-    read_pins()
-    read_inputs_from_file()
+    try:
+        read_pins()
+        # read_inputs_from_file()
+        interactive()
+    except Exception as ex:
+        print("Error: " + str(ex.args))
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
