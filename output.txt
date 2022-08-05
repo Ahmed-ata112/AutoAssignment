@@ -1,7 +1,0 @@
-set_location_assignment PIN_Y19 -to HEX0[0]
-set_location_assignment PIN_AB17 -to HEX0[1]
-set_location_assignment PIN_AA10 -to HEX0[2]
-set_location_assignment PIN_Y14 -to HEX0[3]
-set_location_assignment PIN_V14 -to HEX0[4]
-set_location_assignment PIN_AB22 -to HEX0[5]
-set_location_assignment PIN_AB21 -to HEX0[6]
