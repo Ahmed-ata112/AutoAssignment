@@ -3,6 +3,8 @@ import pandas as pd
 
 names2pins = {}
 isFirst = True
+
+
 def read_pins():
     with open('pins.txt') as f:
 
@@ -18,7 +20,7 @@ def read_pins():
             names2pins[line[0].upper()] = lines[i + 1].split()[0].upper()
             i += 2
 
-    print(names2pins)
+
 def get_pin(input_str: str):
     if input_str.startswith("PIN_"):
         return input_str
@@ -30,20 +32,22 @@ def generate_assignments(signal: str, pin: str):
     # print(f"set_location_assignment {get_pin(pin.upper())} -to {signal.upper()}")
     global isFirst
     with open("output.txt", "w" if isFirst else "a") as f:
-        f.write(f"set_location_assignment {get_pin(pin.upper())} -to {signal}\n")
+        f.write(
+            f"set_location_assignment {get_pin(pin.upper())} -to {signal}\n")
         isFirst = False
 
 
 def read_inputs_from_file():
     try:
-        df = pd.read_excel(r'test1.xlsx')
+        df = pd.read_excel(r'input.xlsx')
         for index, row in df.iterrows():
             generate_assignments(row[0].strip(), row[1].upper().strip())
     except Exception as inst:
-        print(str(type(inst)) + " : " + str(inst.args))  # arguments stored in .args
+        # arguments stored in .args
+        print(str(type(inst)) + " : " + str(inst.args))
 
 
-def generate_vector(signal, size, pin , start):
+def generate_vector(signal, size, pin, start):
     for i in range(size):
         signalname = f"{signal}[{i}]"
         pinName = f"{pin}{i+(start)}"
@@ -57,7 +61,8 @@ def interactive():
             signal, pin = input("signalName assignedPin:\n").strip().split()
             generate_assignments(signal, pin)
         elif c == 1:
-            signal, pin,size,start = input("<signalBaseName pinBaseName size startPosition>\n").strip().split()
+            signal, pin, size, start = input(
+                "<signalBaseName pinBaseName size startPosition>\n").strip().split()
             generate_vector(signal, int(size), pin, int(start))
         elif c == -1:
             break
