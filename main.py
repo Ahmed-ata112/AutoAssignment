@@ -30,7 +30,7 @@ def generate_assignments(signal: str, pin: str):
     # print(f"set_location_assignment {get_pin(pin.upper())} -to {signal.upper()}")
     global isFirst
     with open("output.txt", "w" if isFirst else "a") as f:
-        f.write(f"set_location_assignment {get_pin(pin.upper())} -to {signal.upper()}\n")
+        f.write(f"set_location_assignment {get_pin(pin.upper())} -to {signal}\n")
         isFirst = False
 
 
@@ -38,7 +38,7 @@ def read_inputs_from_file():
     try:
         df = pd.read_excel(r'test1.xlsx')
         for index, row in df.iterrows():
-            generate_assignments(row[0].upper().strip(), row[1].upper().strip())
+            generate_assignments(row[0].strip(), row[1].upper().strip())
     except Exception as inst:
         print(str(type(inst)) + " : " + str(inst.args))  # arguments stored in .args
 
@@ -54,10 +54,10 @@ def interactive():
     while True:
         c = int(input("\nEnter\n0 - individual\n1 - vectors\n-1 - EXIT\n\n"))
         if c == 0:
-            signal, pin = input("signalName assignedPin:\n").strip().upper().split()
+            signal, pin = input("signalName assignedPin:\n").strip().split()
             generate_assignments(signal, pin)
         elif c == 1:
-            signal, pin,size,start = input("<signalBaseName pinBaseName size startPosition>\n").strip().upper().split()
+            signal, pin,size,start = input("<signalBaseName pinBaseName size startPosition>\n").strip().split()
             generate_vector(signal, int(size), pin, int(start))
         elif c == -1:
             break
