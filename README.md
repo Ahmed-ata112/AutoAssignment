@@ -1,6 +1,6 @@
 ## AutoAssignment
 
-A simple script to make the Pins assignment intead of using the Quartus Assignment Editor with DE0-CV board
+A simple script to make the Pins assignment instead of using the Quartus Assignment Editor with DE0-CV board
 
 ## How to use
 
